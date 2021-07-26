@@ -79,4 +79,27 @@ async def et(ctx):
 async def リガルは美少女(ctx):
     await ctx.send(f"{ctx.author.mention} それは違うのニャ！")
 
+@bot.command()
+async def choice(ctx, *args):
+    args = list(args)
+    choice_list = []
+    if len(args) == 1:
+        if args[0][0] == "[":
+            args[0] = args[0][1:]
+        if args[0][-1] == "]":
+            args[0] = args[0][:-1]
+        choice_list = [item.strip() for item in args[0].split(',')]
+        
+    elif len(args) > 1:
+        choice_list = list(args)
+    elif len(args) == 0:
+        await ctx.send("何か言ってほしいのニャ！")
+        return -1
+    else:
+        print("NO DATA")
+
+    choice_result = await random_choice(choice_list)
+    markup_text = await markup_choice(ctx, choice_list, choice_result)
+    await ctx.send(markup_text)
+
 bot.run(token)
