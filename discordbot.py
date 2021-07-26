@@ -84,7 +84,7 @@ async def random_choice(random_list):
     return random_list[choice_num]
 
 async def markup_choice(ctx, choice_list, choice_result):
-    choice_list_text = ",".join(choice_list)
+    choice_list_text = ", ".join(choice_list)
     text = f"{ctx.author.mention} `[{choice_list_text}]` => **{choice_result}**"
     return text
     
