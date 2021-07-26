@@ -5,6 +5,8 @@ import diceSearchAndCalc as dice
 from discord.ext.commands.errors import MissingRequiredArgument
 from discord.ext.commands.errors import CommandNotFound
 import random
+import re
+commentOutWord = "(#)"
 
 bot = commands.Bot(command_prefix='/')
 token = os.environ['DISCORD_BOT_TOKEN']
@@ -89,26 +91,35 @@ async def markup_choice(ctx, choice_list, choice_result):
     return text
     
 @bot.command()
-async def choice(ctx, *args):
-    args = list(args)
+async def choice(ctx, *, arg):
     choice_list = []
-    if len(args) == 1:
-        if args[0][0] == "[":
-            args[0] = args[0][1:]
-        if args[0][-1] == "]":
-            args[0] = args[0][:-1]
-        choice_list = [item.strip() for item in args[0].split(',')]
-        
-    elif len(args) > 1:
-        choice_list = list(args)
-    elif len(args) == 0:
+    choice_text = arg
+    comment_word = ""
+    comment_exist = re.search(commentOutWord, choice_text)
+    if comment_exist:
+        comment_word = choice_text[comment_exist.end():]  #コメントアウト
+        choice_text = choice_text[:comment_exist.start()]
+    
+    comma_exist = re.search(",", choice_text)
+    
+    
+    if choice_text[0] == "[":
+        choice_text = choice_text[1:]
+    if choice_text[-1] == "]":
+        choice_text = choice_text[:-1]
+    if choice_text == "":
         await ctx.send("何か言ってほしいのニャ！")
         return -1
+    
+    if comma_exist:
+        choice_list = [item.strip() for item in choice_text.split(',')]
     else:
-        print("NO DATA")
+        choice_list = choice_text.split()
 
     choice_result = await random_choice(choice_list)
     markup_text = await markup_choice(ctx, choice_list, choice_result)
+    if comment_exist:
+        markup_text = markup_text + f" `#{comment_word}`"
     await ctx.send(markup_text)
 
 bot.run(token)
