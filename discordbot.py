@@ -29,7 +29,7 @@ def initialData():
     botSentences = getSentence.split(",")
     helpText = detectData("help", getData)
     #helpCatText = detectData("help_cat", getData)
-    print(emotionTable)
+    #print(emotionTable)
 
 def readFiles(link):
     with open(link, encoding = "UTF-8") as f:
@@ -117,7 +117,7 @@ async def choice(ctx, *, arg):
         choice_text = choice_text[:comment_exist.start()]
     
     comma_exist = re.search(",", choice_text)
-
+    
     bracket_exist = re.search("\[(.*?)\]", choice_text)
     if bracket_exist:
         choice_text = bracket_exist.group(1)
