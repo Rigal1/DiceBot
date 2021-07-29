@@ -10,7 +10,7 @@ commentOutWord = "(#)"
 
 bot = commands.Bot(command_prefix='/')
 token = os.environ['DISCORD_BOT_TOKEN']
-textDataLink = "/textData.txt"
+textDataLink = "textData.txt"
 percent = 0.3
 #memberList = []
 emotionTable = []
