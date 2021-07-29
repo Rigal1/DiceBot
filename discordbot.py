@@ -17,7 +17,7 @@ emotionTable = []
 botSentences = []
 help_text = ""
 
-def initialData():
+def initial_data():
     getData = readFiles(textDataLink) 
     global emotionTable
     global botSentences
@@ -141,5 +141,5 @@ async def choice(ctx, *, arg):
 async def command(ctx):
     await ctx.send(help_text)
 
-initialDate()
+initial_data()
 bot.run(token)
