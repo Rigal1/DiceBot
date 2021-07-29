@@ -10,9 +10,9 @@ commentOutWord = "(#)"
 
 bot = commands.Bot(command_prefix='/')
 token = os.environ['DISCORD_BOT_TOKEN']
-textDataLink = "textData.txt"
+textDataLink = "/textData.txt"
 percent = 0.3
-memberList = []
+#memberList = []
 emotionTable = []
 botSentences = []
 help_text = ""
@@ -21,13 +21,13 @@ def initialData():
     getData = readFiles(textDataLink) 
     global emotionTable
     global botSentences
-    global helpText
+    global help_text
     #global helpCatText
     getEmotion = detectData("emotionTable", getData)
     emotionTable = getEmotion.split(",")
     getSentence = detectData("errorText", getData)
     botSentences = getSentence.split(",")
-    helpText = detectData("help", getData)
+    help_text = detectData("help", getData)
     #helpCatText = detectData("help_cat", getData)
     #print(emotionTable)
 
