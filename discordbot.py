@@ -139,7 +139,8 @@ async def choice(ctx, *, arg):
     
 @bot.command()
 async def command(ctx):
-    await ctx.send(help_text)
+    if ctx.author.guild_permissions.administrator:
+        await ctx.send(help_text)
 
 initial_data()
 bot.run(token)
