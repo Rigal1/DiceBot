@@ -1,1 +1,1 @@
-discordbot: python discordbot.py
+discordbot: python expect_is_seven.py
