@@ -1,1 +1,1 @@
-discordbot: python expect_is_seven.py
+worker: python expect_is_seven.py
