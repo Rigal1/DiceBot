@@ -1,17 +1,24 @@
 import disnake
 from disnake.ext import commands
+from disnake.ext.commands.errors import CommandNotFound
+from disnake.ext.commands.errors import MissingRequiredArgument
 import diceSearchAndCalc as dice_roll
-import os
 
 import random
 
-bot = commands.Bot(command_prefix = "/")
-token = os.environ['DISCORD_BOT_TOKEN']
+bot = commands.Bot(command_prefix = "!")
+token = "ODE0NDE1NjIzMTgxMzAzODE4.YDdhpw.Ayw6AqC0HCPzqX50dnX3-uVgZDQ"
 
 
-# @bot.slash_command()
-# async def start(inter, user: disnake.User):
-#     await inter.response.send_message(inter.author.mention)
+@bot.event
+async def on_command_error(ctx, error):
+    if type(error) == CommandNotFound:
+        await ctx.send(f"{ctx.author.mention} そのコマンドは無いのニャ！")
+    elif type(error) == MissingRequiredArgument:
+        await ctx.send(f"{ctx.author.mention} コマンドが足りないニャ！")
+    else:
+        await ctx.send(f"{ctx.author.mention} ごめんなさいニャ、何かエラーが起こったみたいニャ")
+
 
 @bot.slash_command(description = "基本的なダイスロールのコマンド")
 async def roll(inter,
@@ -75,6 +82,15 @@ async def choice(inter,
 @bot.command()
 async def neko(ctx):
     await ctx.send("ニャーア♪")
+
+@bot.command()
+async def r(ctx, arg):
+    if ctx.author.bot:
+        return
+
+    result = dice_roll.replaceAndCalc(arg)
+    reply = f"{ctx.author.mention} {result}"
+    await ctx.send(reply)
 
 @bot.event
 async def on_ready():
