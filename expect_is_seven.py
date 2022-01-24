@@ -1,11 +1,12 @@
 import disnake
 from disnake.ext import commands
 import diceSearchAndCalc as dice_roll
+import os
 
 import random
 
 bot = commands.Bot(command_prefix = "/")
-token = "ODE0NDE1NjIzMTgxMzAzODE4.YDdhpw.RlwZuykhj5jfI0krIljRACeTFgg"
+token = os.environ['DISCORD_BOT_TOKEN']
 
 
 # @bot.slash_command()
