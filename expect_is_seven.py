@@ -6,6 +6,9 @@ import diceSearchAndCalc as dice_roll
 
 import random
 
+import os
+token = os.environ['DISCORD_BOT_TOKEN']
+
 bot = commands.Bot(command_prefix = "!")
 token = "ODE0NDE1NjIzMTgxMzAzODE4.YDdhpw.Ayw6AqC0HCPzqX50dnX3-uVgZDQ"
 
