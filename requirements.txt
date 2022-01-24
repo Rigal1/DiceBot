@@ -1,1 +1,2 @@
 disnake>=2.3.0
+jaconv>=0.2.4
