@@ -19,8 +19,12 @@ def calcDice(getText):
     dice = getText.split(checkDType)
     result = 0
     allDice = []
-    if int(dice[0]) > 100 or int(dice[1]) > 1000:
+    if int(dice[0]) > 100 and int(dice[1]) > 1000:
+        return [getText, [], -3]
+    elif int(dice[0]) > 100:
         return [getText, [], -1]
+    elif int(dice[1]) > 1000:
+        return [getText, [], -2]
     
     for i in range(int(dice[0])):
         diceResult = random.randint(1, int(dice[1]))
@@ -63,7 +67,7 @@ def replaceAndCalc(getText):
     if equality != None:
         getList = getText.split(equality.group())
         diceText = getList[0]
-        targetLevel = int(getList[1])
+        targetLevel = eval(getList[1])
     
     calcText = diceText
     returnText = diceText
@@ -74,8 +78,14 @@ def replaceAndCalc(getText):
             if item2 != "":
                 resultDice.append(calcDice(item2))
             
-    if resultDice[0][2] == -1:
-        return "Value Over!!"
+    if len(checkAllDice[0]) != 0 or len(checkAllDice[1]) != 0:
+        for item in resultDice:
+            if item[2] == -1:
+                return "そんなにたくさんダイス振れないニャ！"
+            elif item[2] == -2:
+                return "そんなに大きいダイス振れないニャ！"
+            elif item[2] == -3:
+                return "どっちも大きすぎるニャ！　もうてんやわんやニャ！"
     
     for item in resultDice:
         calcText = calcText.replace(item[0], str(item[2]), 1)
@@ -88,7 +98,7 @@ def replaceAndCalc(getText):
         answer = eval(calcText)
     except (SyntaxError, NameError):
         #print("ERROR!!!")
-        return "ERROR!!!"
+        return "式が間違ってるニャ！"
     
     if equality != None:
         if eval(str(answer) + equality.group() + str(targetLevel)):
@@ -105,6 +115,7 @@ def markdownText(getData):
     allDiceText = ""
     if getData[1] != "":        
         allDiceText = f" {getData[1]} =>"
+        allDiceText = allDiceText.replace("*", "\*")
         
     resultDiceText = f"**{getData[2]}**"
     judgeResultText = ""
@@ -113,10 +124,11 @@ def markdownText(getData):
     
     commentText = ""
     if getData[4] != "":
-        commentText = f"  `{getData[4]}`"
+        commentText = f"  `#{getData[4]}`"
     
     formattedText = f"{inputText} =>{allDiceText} {resultDiceText}{judgeResultText}{commentText}"
     return formattedText
 
-#s = "1D100+10-20<=70#これはコメントです"
-#checkDice(s)
+#s = "  1D100+10-20<=70#これはコメントです"
+#s = "11+2*(5+3)"
+#print(replaceAndCalc(s))
