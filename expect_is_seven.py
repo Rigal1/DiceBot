@@ -80,11 +80,45 @@ async def choice(inter,
 
     await inter.response.send_message(f"{inter.author.mention} {item_list_text} => **{results_text}**{comment}")
 
-
+@bot.slash_command(description = "今日の運試し")
+async def おみくじ(inter):
+    rottory_list = ["大吉", "中吉", "小吉", "吉", "末吉", "凶", "大凶"]
+    extra_list = ["びっくり", "爆発", "猫", "から揚げ"]
+    get_result = ""
+    get_i = random.randint(1, 20)
+    if get_i == 1:
+        get_result = rottory_list[0]
+    elif 2 <= get_i <= 3:
+        get_result = rottory_list[1]
+    elif 4 <= get_i <= 6:
+        get_result = rottory_list[2]
+    elif 7 <= get_i <= 10:
+        get_result = rottory_list[3]
+    elif 11 <= get_i <= 13:
+        get_result = rottory_list[4]
+    elif 14 <= get_i <= 15:
+        get_result = rottory_list[5]
+    elif get_i == 16:
+        get_result = rottory_list[6]
+    elif get_i == 17:
+        get_result = extra_list[0]
+    elif get_i == 18:
+        get_result = extra_list[1]
+    elif get_i == 19:
+        get_result = extra_list[2]
+    elif get_i == 20:
+        get_result = extra_list[3]
+    
+    await inter.response.send_message(f"{inter.author.mention} `今日の運勢` => **{get_result}**")
+    
 @bot.command()
 async def neko(ctx):
     await ctx.send("ニャーア♪")
 
+@bot.command()
+async def お手(ctx):
+    await ctx.send("にゃ（ぽふ）")    
+    
 @bot.command()
 async def r(ctx, arg):
     if ctx.author.bot:
