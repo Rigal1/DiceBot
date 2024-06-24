@@ -3,17 +3,18 @@ import os
 import traceback
 import diceSearchAndCalc as dice
 
-bot = commands.Bot(command_prefix='/')
+#bot = commands.Bot(command_prefix='/')
+client = discord.Client()
 token = os.environ['DISCORD_BOT_TOKEN']
 
-
+"""
 @bot.event
 async def on_command_error(ctx, error):
     orig_error = getattr(error, "original", error)
     error_msg = ''.join(traceback.TracebackException.from_exception(orig_error).format())
     await ctx.send(error_msg)
-
-@bot.event
+"""
+@client.event
 async def on_message(message):
     # メッセージ送信者がBotだった場合は無視する
     #print(message.content[0:2])
@@ -21,7 +22,7 @@ async def on_message(message):
         return
     # 「/neko」と発言したら「にゃーん」が返る処理
     
-    if bot.user in message.mentions: # 話しかけられたかの判定
+    if client.user in message.mentions: # 話しかけられたかの判定
         await reply(message)
     
     if message.content == '/neko':
@@ -36,11 +37,12 @@ async def on_message(message):
 async def reply(message, result):
     reply = f'{message.author.mention} {result}' # 返信メッセージの作成
     await message.channel.send(reply) # 返信メッセージを送信
-    
+
+
+client.run(token)
 """    
 @bot.command()
 async def ping(ctx):
     await ctx.send('pong')
 
 """
-bot.run(token)
