@@ -3,12 +3,15 @@ import os
 import traceback
 import diceSearchAndCalc as dice
 import time
+import random
 
 bot = commands.Bot(command_prefix='/')
 token = os.environ['DISCORD_BOT_TOKEN']
 limitTime = 30
+percent = 0.3
 memberList = []
-botSentences = ["コマンド間違えてたニャ！　気を付けるニャ！",
+emotionTable = ["共感/不信", "友情/怒り", "愛情/妬み", "忠誠/侮蔑", "憧憬/劣等感", "狂信/殺意"]
+botSentences = ["コマンド間違えてるニャ！　気を付けるニャ！",
                 "コマンドが違うニャ！",
                 "また間違えてるのニャ！",
                 "それは違うニャ！",
@@ -81,6 +84,28 @@ async def Rigal(ctx):
 @bot.command()
 async def kitaiti(ctx):
     await ctx.send(f"{ctx.author.mention}**2D6** => 4(2+2) => **4**")
+    
+@bot.command()
+async def ote(ctx):
+    if random.random() >= percent:
+        await ctx.send(f"{ctx.author.mention}ニャ（ぽふ）")
+    else:
+        await ctx.send(f"{ctx.author.mention}ニャ（ぷい）")
+    
+@bot.command()
+async def okawari(ctx):
+    if random.random() >= percent:
+        await ctx.send(f"{ctx.author.mention}ニャ（ぺふ）")
+    else:
+        await ctx.send(f"{ctx.author.mention}ニャ（ぷい）")
 
+@bot.command()
+async def et(ctx):
+    dice = random.randint(1,6)
+    await ctx.send(f"{ctx.author.mention} **{dice}** => `{emotionTable[dice-1]}`")
+    
+@bot.command()
+async def リガルは美少女(ctx):
+    await ctx.send(f"{ctx.author.mention} その通りニャ！")
 
 bot.run(token)
