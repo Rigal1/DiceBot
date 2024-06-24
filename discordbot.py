@@ -41,7 +41,7 @@ async def r(ctx, arg):
     if ctx.author.bot:
         return
 
-    result = dice.replaceAndCalc(arg)
+    result = dice.replaceAndCalc(arg, ctx.author.id)
     reply = f"{ctx.author.mention} {result}"
     await ctx.send(reply)
     
@@ -49,8 +49,12 @@ async def r(ctx, arg):
 async def neko(ctx):
     await ctx.send("ニャーア♪")
     
+
+    
 @bot.command()
 async def kitaiti(ctx):
+    if ctx.author.id == 632853740159762435:
+        await ctx.send("AAAAAAA")
     await ctx.send(f"{ctx.author.mention}**2D6** => 4(2+2) => **4**")
     
 @bot.command()
@@ -74,8 +78,42 @@ async def なでなで(ctx):
         
 @bot.command()
 async def et(ctx):
+    id = ctx.author.id
     dice = random.randint(1,6)
-    await ctx.send(f"{ctx.author.mention} **{dice}** => `{emotionTable[dice-1]}`")
+    if id == 495201006209073152:#モノアイ
+        await ctx.send(f"{ctx.author.mention} **愛情** => `もこさんへの愛情/りんごさんへの愛情`")
+    elif id == 452400598692659202:#正方形
+        await ctx.send(f"{ctx.author.mention} **性質** => `気まぐれ/おもちゃ`")
+    elif id == 543824507178057742:#サイア
+        await ctx.send(f"{ctx.author.mention} **運命** => `君に星見は/微笑まない`")
+    elif id == 238616371624280065:#咲月
+        await ctx.send(f"{ctx.author.mention} **犬** => `チワワ/パピヨン`")
+    elif id == 614789895487225877:#ゼロ
+        await ctx.send(f"{ctx.author.mention} **挨拶** => `浸蝕/人質`")
+    elif id == 670410622164402191:#ウーティス
+        await ctx.send(f"{ctx.author.mention} **感情** => `ナナシノさんへの愛情/ナナシノさんへの狂信`")
+    elif id == 607935585587298325:#ナナシノユクエフメイ
+        await ctx.send(f"{ctx.author.mention} **彼女** => `うてさん/ウーティスさん`")
+    elif id == 639430569989636099:#ハブクサ
+        await ctx.send(f"{ctx.author.mention} **神忍法は** => `夜叉/帝釈天`")
+    elif id == 557209926691454976:#つゆ
+        await ctx.send(f"{ctx.author.mention} **年齢** => `2歳のJD/四十前半`")
+    elif id == 347647544454807574:#そーは
+        await ctx.send(f"{ctx.author.mention} **情緒を殺したのは** => `サボテンさん/つゆさん`")
+    elif id == 335106138041352192:#京極
+        await ctx.send(f"{ctx.author.mention} **犬＝** => `咲月さん/つゆさん`")
+    elif id == 372355770316095488:#きんすざく
+        await ctx.send(f"{ctx.author.mention} **{dice}** => `　　　　　　←あぶり出し`")
+    elif id == 662676435911180304:#むぎはすく
+        await ctx.send(f"{ctx.author.mention} **正体** => `遁甲符/双影呟鬼`")
+    elif id == 302813277581213697:#砂木
+        await ctx.send(f"{ctx.author.mention} **神絵師** => `可愛い/アイコン永遠に感謝`")
+    elif id == 619504754959056906:#さるみかん
+        await ctx.send(f"{ctx.author.mention} **ガバ** => `天井裏のベッド/辛い時は言ってYo`")
+    elif id == 632853740159762435:#リガル
+        await ctx.send(f"{ctx.author.mention} **この騒動の** => `主犯/元凶`")
+    else:
+        await ctx.send(f"{ctx.author.mention} **{dice}** => `{emotionTable[dice-1]}`")
 
 @bot.command()
 async def リガルは美少女(ctx):

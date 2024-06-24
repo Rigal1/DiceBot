@@ -14,7 +14,7 @@ def checkDice(getText):
     checkB = re.findall(r"([0-9]+b[0-9]+)", getText, flags=re.IGNORECASE)
     return [checkB, checkD]
     
-def calcDice(getText):
+def calcDice(getText, id):
     checkDType = re.search("b|d", getText, flags=re.IGNORECASE).group()
     dice = getText.split(checkDType)
     result = 0
@@ -28,6 +28,9 @@ def calcDice(getText):
     
     for i in range(int(dice[0])):
         diceResult = random.randint(1, int(dice[1]))
+        if id == 543824507178057742:
+            diceResult = 1
+            
         allDice.append(diceResult)
         result += diceResult
         
@@ -36,14 +39,18 @@ def calcDice(getText):
         
     return [getText, allDice, result]
 
-def calcD66():
+def calcD66(id):
     dice1 = random.randint(1,6)
     dice2 = random.randint(1,6)
+    if id == 543824507178057742:
+        dice1 = 1
+        dice2 = 1
+    
     dice = [dice1,dice2]
     dice.sort()
     return (10*dice[0]+dice[1])
 
-def replaceAndCalc(getText):
+def replaceAndCalc(getText, id):
     commentWord = ""
     commentExist = re.search(commentOutWord, getText)
     if commentExist:
@@ -52,7 +59,7 @@ def replaceAndCalc(getText):
 
     getText = jaconv.z2h(getText, ascii=True, digit=True)
     if getText.upper() == "D66":
-        d66 = calcD66()
+        d66 = calcD66(id)
         sendData = [getText, "", str(d66), "", ""]
         markedText = markdownText(sendData)
         return markedText
@@ -76,7 +83,7 @@ def replaceAndCalc(getText):
     for item in checkAllDice:
         for item2 in item:
             if item2 != "":
-                resultDice.append(calcDice(item2))
+                resultDice.append(calcDice(item2, id))
             
     if len(checkAllDice[0]) != 0 or len(checkAllDice[1]) != 0:
         for item in resultDice:
